@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX
 import 'package:cotsgojek/design_system/styles/color.dart';
 import 'package:cotsgojek/design_system/styles/typograph.dart';
+import 'package:cotsgojek/modules/routes/app_routes.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _phoneController = TextEditingController();
@@ -118,7 +119,9 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _onSubmit,
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.main); // Mengarahkan ke MainPage
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorCollection.greenGojek,
                     shape: RoundedRectangleBorder(

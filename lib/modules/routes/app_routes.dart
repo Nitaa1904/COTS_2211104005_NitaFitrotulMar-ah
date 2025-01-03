@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:cotsgojek/modules/view/LoginPage.dart';
 import 'package:cotsgojek/modules/view/PageView.dart';
+import 'package:cotsgojek/modules/view/MainPage.dart';
 
 class AppRoutes {
   static const String onboarding = '/';
   static const String login = '/login';
   static const String register = '/register';
+  static const String main = '/main';
 
   static final routes = [
     GetPage(
@@ -16,9 +18,10 @@ class AppRoutes {
       name: login,
       page: () => LoginPage(),
     ),
-    // GetPage(
-    //   name: register,
-    //   page: () => const RegisterPage(),
-    // ),
+    GetPage(
+      name: AppRoutes.main, // Gunakan rute dari AppRoutes
+      page: () =>
+          const MainPage(), // Pastikan MainPage diinisialisasi dengan benar
+    ),
   ];
 }
