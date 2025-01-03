@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:cotsgojek/modules/controller/PageController.dart';
 import 'package:cotsgojek/design_system/widget/navbar/onboardingnavbar.dart';
 import 'package:cotsgojek/design_system/styles/color.dart';
+import 'package:get/get.dart';
+import 'package:cotsgojek/modules/routes/app_routes.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -54,7 +56,7 @@ class OnboardingPage extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                            Get.toNamed(AppRoutes.login);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorCollection.greenGojek,
@@ -75,7 +77,7 @@ class OnboardingPage extends StatelessWidget {
                         const SizedBox(height: 16),
                         OutlinedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/register');
+                            Get.toNamed(AppRoutes.register);
                           },
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(color: ColorCollection.greenGojek),
