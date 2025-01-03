@@ -1,126 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cotsgojek/modules/controller/PageController.dart';
 import 'package:cotsgojek/design_system/widget/navbar/onboardingnavbar.dart';
 import 'package:cotsgojek/design_system/styles/color.dart';
-import 'package:cotsgojek/design_system/styles/typograph.dart';
 
-class OnboardingPage extends StatefulWidget {
+class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
-  @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
-}
-
-class _OnboardingPageState extends State<OnboardingPage> {
-  final PageController _pageController = PageController();
-  int _currentIndex = 0;
-
-  final List<Widget> _slides = [
+  final List<Widget> _slides = const [
     OnboardingSlide(
-      imagePath: 'assets/images/welcome.png', // Path gambar untuk slide 1
+      imagePath: 'assets/images/welcome.png',
       title: "Selamat datang di Gojek!",
       subtitle:
           "Aplikasi yang bikin hidupmu lebih nyaman. Siap bantuin semua kebutuhanmu, kapanpun, dan di manapun.",
     ),
     OnboardingSlide(
-      imagePath: 'assets/images/transportasi.png', // Path gambar untuk slide 2
+      imagePath: 'assets/images/transportasi.png',
       title: "Transportasi & logistik",
       subtitle:
-          "Antarin kamu jalan atau ambilin barang lebih gampang tinggal  ngeklik doang",
+          "Antarin kamu jalan atau ambilin barang lebih gampang tinggal ngeklik doang.",
     ),
     OnboardingSlide(
-      imagePath: 'assets/images/belanja.png', // Path gambar untuk slide 3
+      imagePath: 'assets/images/belanja.png',
       title: "Pesan makan & belanja",
       subtitle: "Lagi ngidam sesuatu? Gojek beliin gak pakai lama.",
     ),
   ];
 
   @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      setState(() {
-        _currentIndex = _pageController.page?.round() ?? 0;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Navbar untuk onboarding
-            OnboardingNavbar(
-              pageController: _pageController,
-              slides: _slides,
-              currentIndex: _currentIndex,
-            ),
-            const SizedBox(height: 16),
-            // Tombol navigasi
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
+    return ChangeNotifierProvider(
+      create: (_) {
+        final controller = OnboardingPageController();
+        controller.initListener();
+        return controller;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Consumer<OnboardingPageController>(
+            builder: (context, controller, child) {
+              return Column(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorCollection.greenGojek,
-                      minimumSize: const Size.fromHeight(48),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                  OnboardingNavbar(
+                    pageController: controller.pageController,
+                    slides: _slides,
+                    currentIndex: controller.currentIndex,
+                  ),
+                  const SizedBox(height: 16),
+                  // Tombol navigasi
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/login');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorCollection.greenGojek,
+                            minimumSize: const Size.fromHeight(48),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Text(
+                            "Masuk",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/register');
+                          },
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: ColorCollection.greenGojek),
+                            minimumSize: const Size.fromHeight(48),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            "Belum ada akun? Daftar dulu",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: ColorCollection.greenGojek,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    child: const Text(
-                      "Masuk",
+                  ),
+                  const SizedBox(height: 16),
+                  // Footer
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "Dengan masuk atau mendaftar, kamu menyetujui Ketentuan layanan dan Kebijakan privasi.",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        fontSize: 12,
+                        color: ColorCollection.neutral600,
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register');
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: ColorCollection.greenGojek),
-                      minimumSize: const Size.fromHeight(48),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      "Belum ada akun? Daftar dulu",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: ColorCollection.greenGojek,
-                      ),
-                    ),
-                  ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Footer
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                "Dengan masuk atau mendaftar, kamu menyetujui Ketentuan layanan dan Kebijakan privasi.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: ColorCollection.neutral600,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );
