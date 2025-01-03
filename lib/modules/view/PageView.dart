@@ -16,13 +16,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   final List<Widget> _slides = [
     OnboardingSlide(
-      imagePath:
-          'assets/images/welcome.png', // Sesuaikan dengan path gambar Anda
-      title: "Selamat datang di gojek!",
+      imagePath: 'assets/images/welcome.png', // Path gambar untuk slide 1
+      title: "Selamat datang di Gojek!",
       subtitle:
           "Aplikasi yang bikin hidupmu lebih nyaman. Siap bantuin semua kebutuhanmu, kapanpun, dan di manapun.",
     ),
-    // Tambahkan slide lain jika dibutuhkan
+    OnboardingSlide(
+      imagePath: 'assets/images/transportasi.png', // Path gambar untuk slide 2
+      title: "Transportasi & logistik",
+      subtitle:
+          "Antarin kamu jalan atau ambilin barang lebih gampang tinggal  ngeklik doang",
+    ),
+    OnboardingSlide(
+      imagePath: 'assets/images/belanja.png', // Path gambar untuk slide 3
+      title: "Pesan makan & belanja",
+      subtitle: "Lagi ngidam sesuatu? Gojek beliin gak pakai lama.",
+    ),
   ];
 
   @override
@@ -41,7 +50,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       body: SafeArea(
         child: Column(
           children: [
-            // Gunakan OnboardingNavbar
+            // Navbar untuk onboarding
             OnboardingNavbar(
               pageController: _pageController,
               slides: _slides,
@@ -86,7 +95,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ),
                     ),
                     child: Text(
-                      "Belum ada akun?, Daftar dulu",
+                      "Belum ada akun? Daftar dulu",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
