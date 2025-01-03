@@ -1,9 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:cotsgojek/design_system/widget/navbar/onboardingnavbar.dart';
 import 'package:cotsgojek/design_system/styles/color.dart';
 import 'package:cotsgojek/design_system/styles/typograph.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
+
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+
+  final List<Widget> _slides = [
+    OnboardingSlide(
+      imagePath:
+          'assets/images/welcome.png', // Sesuaikan dengan path gambar Anda
+      title: "Selamat datang di gojek!",
+      subtitle:
+          "Aplikasi yang bikin hidupmu lebih nyaman. Siap bantuin semua kebutuhanmu, kapanpun, dan di manapun.",
+    ),
+    // Tambahkan slide lain jika dibutuhkan
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {
+        _currentIndex = _pageController.page?.round() ?? 0;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,38 +41,11 @@ class OnboardingPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Logo dan ilustrasi
-            Expanded(
-              flex: 3,
-              child: PageView(
-                children: [
-                  OnboardingSlide(
-                    imagePath:
-                        'assets/images/onboarding1.png', // Ganti dengan path gambar Anda
-                    title: "Selamat datang di gojek!",
-                    subtitle:
-                        "Aplikasi yang bikin hidupmu lebih nyaman. Siap bantuin semua kebutuhanmu, kapanpun, dan di manapun.",
-                  ),
-                  // Tambahkan slide tambahan jika diperlukan
-                ],
-              ),
-            ),
-            // Indicator
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(5, (index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: index == 0
-                        ? ColorCollection.greenGojek
-                        : ColorCollection.neutral500,
-                  ),
-                );
-              }),
+            // Gunakan OnboardingNavbar
+            OnboardingNavbar(
+              pageController: _pageController,
+              slides: _slides,
+              currentIndex: _currentIndex,
             ),
             const SizedBox(height: 16),
             // Tombol navigasi
