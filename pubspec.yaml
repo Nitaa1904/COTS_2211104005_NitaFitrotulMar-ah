@@ -66,6 +66,10 @@ flutter:
     - assets/images/belanja.png
     - assets/icons/Gojek.svg
     - assets/icons/Language.svg
+    - assets/icons/Home.svg
+    - assets/icons/Promos.svg
+    - assets/icons/Orders.svg
+    - assets/icons/Chat.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
