@@ -64,12 +64,15 @@ flutter:
     - assets/images/welcome.png
     - assets/images/transportasi.png
     - assets/images/belanja.png
-    - assets/icons/Gojek.svg
-    - assets/icons/Language.svg
+    - assets/icons/Gojek-Logo.png
+    - assets/icons/language1.svg
     - assets/icons/Home.svg
     - assets/icons/Promos.svg
     - assets/icons/Orders.svg
     - assets/icons/Chat.svg
+    - assets/icons/Help.svg
+    - assets/icons/Gojek.svg
+    - assets/icons/Flags.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

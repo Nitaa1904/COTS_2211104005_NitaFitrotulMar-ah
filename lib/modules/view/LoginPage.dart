@@ -1,36 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Import GetX
+import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cotsgojek/design_system/styles/color.dart';
 import 'package:cotsgojek/design_system/styles/typograph.dart';
-import 'package:cotsgojek/modules/routes/app_routes.dart';
+import 'package:cotsgojek/modules/controller/LoginController.dart';
+import 'package:cotsgojek/design_system/widget/navbar/LoginNavbar.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _phoneController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
-  String? validatePhoneNumber(String? value) {
-    final phoneRegExp = RegExp(r'^\d{10,13}$');
-    if (value == null || value.isEmpty) {
-      return 'Phone number is required';
-    } else if (!phoneRegExp.hasMatch(value)) {
-      return 'Enter a valid phone number (10-13 digits)';
-    }
-    return null;
-  }
-
-  void _onSubmit() {
-    if (_formKey.currentState!.validate()) {
-      // Submit logic here
-      print('Phone Number: ${_phoneController.text}');
-      Get.snackbar(
-        'Success',
-        'Phone Number Submitted',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: ColorCollection.greenGojek,
-        colorText: Colors.white,
-      );
-    }
-  }
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +15,22 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorCollection.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: ColorCollection.item),
-          onPressed: () {
-            Get.back(); // Ganti Navigator.pop dengan Get.back
+        title: LoginNavbar(
+          onHelpPressed: () {
+            // Tambahkan logika untuk aksi "Help"
+            Get.snackbar('Help', 'Help button pressed');
           },
         ),
-        title: Text('Login', style: AppTypography.h2),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
+          key: controller.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text('Login', style: AppTypography.h2),
               Text(
                 'Enter your registered phone number to log in',
                 style: AppTypography.subhead2
@@ -79,7 +56,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextFormField(
-                      controller: _phoneController,
+                      controller: controller.phoneController,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         hintText: 'Phone number',
@@ -96,7 +73,7 @@ class LoginPage extends StatelessWidget {
                               BorderSide(color: ColorCollection.greenGojek),
                         ),
                       ),
-                      validator: validatePhoneNumber,
+                      validator: controller.validatePhoneNumber,
                     ),
                   ),
                 ],
@@ -119,9 +96,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.main); // Mengarahkan ke MainPage
-                  },
+                  onPressed: controller.onSubmit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorCollection.greenGojek,
                     shape: RoundedRectangleBorder(

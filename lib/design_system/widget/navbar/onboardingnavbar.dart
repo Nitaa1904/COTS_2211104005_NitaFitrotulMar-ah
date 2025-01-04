@@ -25,18 +25,20 @@ class OnboardingNavbar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Logo Gojek di kiri
+              // Logo Gojek di kiri dengan warna hijau
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SvgPicture.asset(
                   'assets/icons/Gojek.svg', // Path file SVG
+                  color: Colors.green, // Warna ikon
                 ),
               ),
-              // Logo Language di kanan
+              // Logo Language di kanan dengan warna biru
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SvgPicture.asset(
-                  'assets/icons/Language.svg', // Path file SVG
+                  'assets/icons/language1.svg', // Path file SVG
+                  color: Colors.orange, // Warna ikon
                 ),
               ),
             ],

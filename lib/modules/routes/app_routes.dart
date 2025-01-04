@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:cotsgojek/modules/view/LoginPage.dart';
 import 'package:cotsgojek/modules/view/PageView.dart';
 import 'package:cotsgojek/modules/view/MainPage.dart';
+import 'package:cotsgojek/modules/bindings/LoginBinding.dart';
 
 class AppRoutes {
   static const String onboarding = '/';
@@ -17,6 +18,7 @@ class AppRoutes {
     GetPage(
       name: login,
       page: () => LoginPage(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: AppRoutes.main, // Gunakan rute dari AppRoutes
